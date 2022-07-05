@@ -1,0 +1,63 @@
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import java.awt.HeadlessException;
+
+public class contoh1 extends javax.swing.JFrame {
+    
+    Connection conn;
+    Statement stat;
+    ResultSet result;
+    String sql;
+
+public contoh1() {
+        initComponents();
+        
+        koneksi DB = new koneksi();
+        DB.ambilKoneksi();
+        conn = DB.koneksi;
+        stat = DB.state;
+    }
+ 
+private void txtusernameActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        // TODO add your handling code here:
+    } 
+
+private void btnmasukActionPerformed(java.awt.event.ActionEvent evt) {                                         
+       
+        try {
+        sql = "SELECT * FROM table_staff WHERE username='"+txtusername.getText()+"' AND password='"+txtpassword.getText()+"'";
+        result = stat.executeQuery(sql);
+        if(result.next()) {
+            if(txtusername.getText().equals(result.getString("username")) && 
+                        txtpassword.getText().equals(result.getString("password"))){
+                    JOptionPane.showMessageDialog(null, "berhasil login");
+        }
+        }else{
+                    JOptionPane.showMessageDialog(null, "username atau password salah");
+                }
+        }catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        
+        new contoh7().setVisible(true);
+        
+
+    }
+
+private void btnbuatakunActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        new contoh2().setVisible(true);
+    }
+
+public static void main(String args[]) {
+java.awt.EventQueue.invokeLater(new Runnable() {
+public void main() {
+  new contoh1().setVisible(true);
+}
+});
+
+}
+
