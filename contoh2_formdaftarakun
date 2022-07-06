@@ -1,0 +1,64 @@
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import database.*;
+
+public class contoh2 extends javax.swing.JFrame {
+  private Connection conn = new koneksi().ambilKoneksi(); 
+    
+    protected void aktif() {
+        txtusername.setEnabled(true);
+        txtemail.setEnabled(true);
+        txtnotlp.setEnabled(true);
+        txtpassword.setEnabled(true);
+        retypepassword.setEnabled(true);
+        txtusername.requestFocus(true);
+    }
+    
+    protected void kosong() {
+        txtusername.setText("");
+        txtemail.setText("");
+        txtnotlp.setText("");
+        txtpassword.setText("");
+        retypepassword.setText("");
+    }
+    
+    private void btnsimpanActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        
+        
+        String sql = "insert into table_pengguna values (?,?,?,?,?)";
+        
+        try{
+                PreparedStatement stat = conn.prepareStatement(sql);
+                stat.setString(1, txtusername.getText());
+                stat.setString(2, txtemail.getText());
+                stat.setString(3, txtnotlp.getText());
+                stat.setString(4, txtpassword.getText());
+                stat.setString(5, retypepassword.getText());
+                
+                stat.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Register Done !");
+                kosong();
+                txtusername.requestFocus();
+                
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Register gagal" + e);
+        }
+        
+        private void btnbatalActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        
+        new contoh1().setVisible(true);
+        
+    }
+    
+    public static void main(String args[]) {
+     java.awt.EventQueue.invokeLater(new Runnable() {
+      public void run() {
+        new contoh2().setVisible(true);
+      }
+     
+     });
+    }
+
+}
