@@ -1,0 +1,8 @@
+package database;
+
+public class tesconnect {
+    public static void main(String[] args) {
+        koneksi.ambilKoneksi();
+    }
+    
+}
