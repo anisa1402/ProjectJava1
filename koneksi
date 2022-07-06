@@ -1,0 +1,32 @@
+package database;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.sql.DriverManager;
+
+
+public class koneksi {
+    public static Connection koneksi;
+    public static Statement state;
+        
+public static Connection ambilKoneksi(){
+    try{
+        DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+        koneksi = DriverManager.getConnection("jdbc:mysql://127.0.01/db_staff", "root", "");
+        System.out.println("WELCOME, YOU SUCCESS FOR CONNECT TO DATABASE");
+        state=koneksi.createStatement();
+    } catch (SQLException ex) {
+        Logger.getLogger(koneksi.class.getName()).log(Level.SEVERE,null, ex);
+        System.out.println("TRY AGAIN FOR CONNECT TO DATABASE!!");
+        
+    }
+    return koneksi;
+}
+    
+}
